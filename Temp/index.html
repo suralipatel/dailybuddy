@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="DailyBuddy - A friendly, simple, and modern daily task planner to organize your day.">
-  <title>DailyBuddy - Your Friendly Task Planner</title>
+  <meta name="description" content="Arrow Puzzle - 14-Day Launch Plan Todo List. Calendar view, P1/P2/P3 priorities, track breakdown, and checkpoint milestones.">
+  <title>Arrow Puzzle - 14-Day Launch Plan</title>
   
-  <!-- Modern Google Font: Plus Jakarta Sans -->
+  <!-- Modern Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   
-  <!-- Mobile & PWA Optimization for Android -->
-  <meta name="theme-color" content="#4f46e5">
+  <!-- Mobile & PWA Optimization -->
+  <meta name="theme-color" content="#1e1b4b">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Arrow Launch Plan">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
@@ -24,137 +25,535 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-wrapper">
-    <!-- Header Section with App Title and Dynamic Date -->
+  <div class="app-layout">
+    
+    <!-- Top Global Header -->
     <header class="app-header">
-      <div class="header-top">
-        <div class="brand">
-          <span class="brand-icon" aria-hidden="true">✨</span>
+      <div class="header-inner">
+        <div class="brand-block">
+          <div class="brand-badge-icon">🏹</div>
           <div>
-            <h1 class="brand-title">DailyBuddy</h1>
-            <p class="brand-subtitle">Make today count, one step at a time.</p>
+            <div class="brand-title-row">
+              <h1 class="brand-title">ARROW PUZZLE</h1>
+              <span class="launch-pill">14-DAY LAUNCH PLAN</span>
+            </div>
+            <p class="brand-meta">
+              <span class="date-range">📅 19 Oct – 2 Nov 2026</span>
+              <span class="meta-divider">•</span>
+              <span class="goal-highlight">🎯 Goal: finish testing, 400+ levels, launch ready, 1M+ downloads</span>
+            </p>
           </div>
         </div>
-        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle theme">
-          <span id="themeIcon" aria-hidden="true">🌙</span>
-        </button>
-      </div>
 
-      <!-- Current Date Banner -->
-      <div class="date-badge" id="currentDateBadge">
-        <span class="calendar-icon" aria-hidden="true">📅</span>
-        <span id="currentDateText">Loading today's date...</span>
+        <div class="header-actions">
+          <!-- Priority Legend Pills -->
+          <div class="priority-legend" aria-label="Priority reference">
+            <span class="legend-badge p1-badge" title="P1: Must do (Blocker)">P1 Must do</span>
+            <span class="legend-badge p2-badge" title="P2: Should do (Important)">P2 Should do</span>
+            <span class="legend-badge p3-badge" title="P3: Nice to have (Optional)">P3 Nice to have</span>
+          </div>
+
+          <div class="header-buttons">
+            <button id="quickAddBtn" class="btn btn-primary" title="Add a new task">
+              <span class="btn-icon">＋</span>
+              <span>New Task</span>
+            </button>
+            <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle dark mode" title="Toggle theme">
+              <span id="themeIcon">🌙</span>
+            </button>
+            <button id="resetPlanBtn" class="icon-btn" aria-label="Reset to original launch plan" title="Reset to original 14-day launch plan">
+              <span>🔄</span>
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="app-main">
-      <!-- Progress Overview Card -->
-      <section class="card progress-card" aria-label="Daily Task Progress">
-        <div class="progress-header">
-          <div>
-            <h2 class="card-title">Daily Progress</h2>
-            <p class="progress-subtext" id="progressSubtext">0 of 0 tasks completed</p>
+    <!-- Metrics & Readiness Dashboard -->
+    <section class="dashboard-section" aria-label="Launch Progress & Metrics">
+      <div class="metrics-grid">
+        <!-- Overall Progress Card -->
+        <div class="metric-card progress-overview-card">
+          <div class="metric-top">
+            <div>
+              <span class="metric-label">Launch Readiness</span>
+              <div class="metric-value-row">
+                <span class="metric-number" id="overallPercent">0%</span>
+                <span class="metric-sub" id="overallTasksCount">0 of 29 completed</span>
+              </div>
+            </div>
+            <div class="circular-progress-wrap">
+              <svg class="circular-chart" viewBox="0 0 36 36">
+                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path id="circleProgressPath" class="circle-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+            </div>
           </div>
-          <span class="progress-percent-badge" id="progressPercentBadge">0%</span>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="overallProgressBar" style="width: 0%;"></div>
+          </div>
+          <p class="motivation-quote" id="launchStatusQuote">Getting launch-ready! Check off your first P1 blocker.</p>
         </div>
 
-        <div class="progress-bar-track" role="progressbar" id="progressBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Task completion progress">
-          <div class="progress-bar-fill" id="progressBarFill"></div>
+        <!-- Priority Breakdown Cards -->
+        <div class="metric-card priority-breakdown-card">
+          <div class="priority-metric-row p1-row">
+            <div class="priority-label-col">
+              <span class="badge p1-badge">P1 Must do</span>
+              <span class="priority-subtext">Launch Blockers</span>
+            </div>
+            <div class="priority-bar-col">
+              <div class="mini-progress-track">
+                <div class="mini-progress-fill fill-p1" id="p1ProgressBar" style="width: 0%;"></div>
+              </div>
+            </div>
+            <span class="priority-count-pill" id="p1CountBadge">0/17</span>
+          </div>
+
+          <div class="priority-metric-row p2-row">
+            <div class="priority-label-col">
+              <span class="badge p2-badge">P2 Should do</span>
+              <span class="priority-subtext">Important Polish</span>
+            </div>
+            <div class="priority-bar-col">
+              <div class="mini-progress-track">
+                <div class="mini-progress-fill fill-p2" id="p2ProgressBar" style="width: 0%;"></div>
+              </div>
+            </div>
+            <span class="priority-count-pill" id="p2CountBadge">0/9</span>
+          </div>
+
+          <div class="priority-metric-row p3-row">
+            <div class="priority-label-col">
+              <span class="badge p3-badge">P3 Nice to have</span>
+              <span class="priority-subtext">Growth & Bonus</span>
+            </div>
+            <div class="priority-bar-col">
+              <div class="mini-progress-track">
+                <div class="mini-progress-fill fill-p3" id="p3ProgressBar" style="width: 0%;"></div>
+              </div>
+            </div>
+            <span class="priority-count-pill" id="p3CountBadge">0/3</span>
+          </div>
         </div>
 
-        <p class="motivation-quote" id="motivationQuote">Start your day by adding your first task!</p>
-      </section>
-
-      <!-- Task Creation Form Card -->
-      <section class="card form-card" aria-label="Add a New Task">
-        <h2 class="card-title">Add a Task</h2>
-        <form id="taskForm" novalidate>
-          <div class="input-group">
-            <input 
-              type="text" 
-              id="taskInput" 
-              class="task-input" 
-              placeholder="What do you need to do today? (e.g., Read 15 mins)" 
-              autocomplete="off"
-              maxlength="120"
-              aria-label="New task description"
-            >
-            <button type="submit" id="addTaskBtn" class="btn btn-primary">
-              <span class="btn-icon" aria-hidden="true">＋</span>
-              <span>Add Task</span>
-            </button>
+        <!-- Sprint Countdown & Key Milestone Card -->
+        <div class="metric-card countdown-milestone-card">
+          <div class="countdown-header">
+            <span class="metric-label">14-Day Sprint Window</span>
+            <span class="countdown-badge" id="sprintDayBadge">Day 1 of 14</span>
           </div>
-
-          <!-- Quick Category Tags (Optional, easy 1-click selection) -->
-          <div class="category-selector" aria-label="Choose a task category">
-            <span class="category-label">Category:</span>
-            <label class="tag-radio">
-              <input type="radio" name="taskCategory" value="General" checked>
-              <span class="tag-chip tag-general">📌 General</span>
-            </label>
-            <label class="tag-radio">
-              <input type="radio" name="taskCategory" value="Work">
-              <span class="tag-chip tag-work">💼 Work</span>
-            </label>
-            <label class="tag-radio">
-              <input type="radio" name="taskCategory" value="Personal">
-              <span class="tag-chip tag-personal">🌱 Personal</span>
-            </label>
-            <label class="tag-radio">
-              <input type="radio" name="taskCategory" value="Urgent">
-              <span class="tag-chip tag-urgent">⚡ Urgent</span>
-            </label>
+          <div class="next-milestone-box">
+            <span class="milestone-icon">🚩</span>
+            <div class="milestone-info">
+              <span class="milestone-title" id="nextMilestoneTitle">Upcoming Checkpoint</span>
+              <p class="milestone-desc" id="nextMilestoneDesc">26 Oct: Mid-point review (200 levels, ads test IDs)</p>
+            </div>
           </div>
-
-          <!-- Validation Error Message Display -->
-          <div id="formErrorMessage" class="error-message" role="alert" aria-live="polite"></div>
-        </form>
-      </section>
-
-      <!-- Task Controls & Filters -->
-      <section class="card tasks-card" aria-label="Your Tasks">
-        <div class="tasks-toolbar">
-          <div class="filter-tabs" role="tablist" aria-label="Filter tasks">
-            <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true" id="filterAll">
-              All <span class="badge" id="countAll">0</span>
-            </button>
-            <button class="filter-tab" data-filter="active" role="tab" aria-selected="false" id="filterActive">
-              To Do <span class="badge" id="countActive">0</span>
-            </button>
-            <button class="filter-tab" data-filter="completed" role="tab" aria-selected="false" id="filterCompleted">
-              Done <span class="badge" id="countCompleted">0</span>
-            </button>
+          <div class="quick-sprint-days" id="quickSprintDays" aria-label="14-Day sprint quick selector">
+            <!-- Populated via script: 19 Oct to 2 Nov pills -->
           </div>
+        </div>
+      </div>
+    </section>
 
-          <button id="clearCompletedBtn" class="btn btn-ghost" title="Remove all completed tasks">
-            Clear Done
+    <!-- Navigation View Switcher & Filter Toolbar -->
+    <nav class="app-toolbar" aria-label="View and Filter controls">
+      <div class="toolbar-top">
+        <!-- View Mode Switcher -->
+        <div class="view-switcher" role="tablist" aria-label="Select view mode">
+          <button class="view-tab active" data-view="calendar" role="tab" aria-selected="true" id="tabCalendar">
+            <span class="tab-icon">📅</span>
+            <span>Calendar View</span>
+          </button>
+          <button class="view-tab" data-view="timeline" role="tab" aria-selected="false" id="tabTimeline">
+            <span class="tab-icon">⏱️</span>
+            <span>Day-by-Day Agenda</span>
+          </button>
+          <button class="view-tab" data-view="priority" role="tab" aria-selected="false" id="tabPriority">
+            <span class="tab-icon">⚡</span>
+            <span>By Priority (P1-P3)</span>
+          </button>
+          <button class="view-tab" data-view="track" role="tab" aria-selected="false" id="tabTrack">
+            <span class="tab-icon">📁</span>
+            <span>By Category Track</span>
+          </button>
+          <button class="view-tab" data-view="all" role="tab" aria-selected="false" id="tabAll">
+            <span class="tab-icon">📋</span>
+            <span>All Tasks List</span>
           </button>
         </div>
 
-        <!-- Task List Items -->
-        <ul id="taskList" class="task-list" aria-label="List of tasks">
-          <!-- Dynamically populated via script.js -->
-        </ul>
+        <!-- Search Input -->
+        <div class="search-box">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input 
+            type="search" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="Search tasks, rules, ads, console..." 
+            autocomplete="off"
+            aria-label="Search tasks"
+          >
+          <button id="clearSearchBtn" class="clear-search-btn" title="Clear search" style="display:none;">✕</button>
+        </div>
+      </div>
 
-        <!-- Empty State Container -->
-        <div id="emptyState" class="empty-state">
-          <div class="empty-state-icon" aria-hidden="true">📋</div>
-          <h3 class="empty-state-title" id="emptyStateTitle">No tasks yet</h3>
-          <p class="empty-state-text" id="emptyStateText">
-            Type something in the box above and tap <strong>Add Task</strong> to kick off your day!
-          </p>
+      <!-- Filters & Sorting Row -->
+      <div class="toolbar-bottom">
+        <div class="filter-chips-group" aria-label="Priority quick filters">
+          <span class="filter-group-label">Priority:</span>
+          <button class="chip-filter active" data-priority="all">All <span class="chip-count" id="chipAllCount">29</span></button>
+          <button class="chip-filter chip-p1" data-priority="P1">P1 Must do <span class="chip-count" id="chipP1Count">17</span></button>
+          <button class="chip-filter chip-p2" data-priority="P2">P2 Should do <span class="chip-count" id="chipP2Count">9</span></button>
+          <button class="chip-filter chip-p3" data-priority="P3">P3 Nice to have <span class="chip-count" id="chipP3Count">3</span></button>
+        </div>
+
+        <div class="filter-selects-group">
+          <!-- Track Selector Filter -->
+          <div class="select-wrapper">
+            <label for="trackFilterSelect" class="sr-only">Filter by Track</label>
+            <select id="trackFilterSelect" class="filter-select" aria-label="Filter by Track">
+              <option value="all">📂 All Tracks (A–F)</option>
+              <option value="A">A. Play Console & Testing</option>
+              <option value="B">B. Game Content (Main Task)</option>
+              <option value="C">C. Analytics & Rewarded Ads</option>
+              <option value="D">D. Website & Policy</option>
+              <option value="E">E. Marketing Prep</option>
+              <option value="F">F. Accounts & Legal</option>
+            </select>
+          </div>
+
+          <!-- Status Selector Filter -->
+          <div class="select-wrapper">
+            <label for="statusFilterSelect" class="sr-only">Filter by Status</label>
+            <select id="statusFilterSelect" class="filter-select" aria-label="Filter by Status">
+              <option value="all">Status: All</option>
+              <option value="active">Pending (To-Do)</option>
+              <option value="completed">Completed (Done)</option>
+            </select>
+          </div>
+
+          <!-- Sort Selector -->
+          <div class="select-wrapper">
+            <label for="sortSelect" class="sr-only">Sort Tasks</label>
+            <select id="sortSelect" class="filter-select" aria-label="Sort Tasks">
+              <option value="date-asc">Sort: Due Date (Earliest)</option>
+              <option value="date-desc">Sort: Due Date (Latest)</option>
+              <option value="priority-p1">Sort: Priority (P1 → P3)</option>
+              <option value="track-az">Sort: Track (A → F)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Active Filter Notice Banner (shows when filtered by a specific calendar date or search) -->
+    <div id="filterBanner" class="filter-active-banner" style="display: none;">
+      <div class="filter-banner-text">
+        <span class="filter-banner-icon">📌</span>
+        <span id="filterBannerText">Showing tasks for selected date</span>
+      </div>
+      <button id="clearDateFilterBtn" class="btn btn-sm btn-outline">Show All Dates</button>
+    </div>
+
+    <!-- Main Content Area Dynamic Views -->
+    <main class="app-main">
+
+      <!-- VIEW 1: CALENDAR VIEW CONTAINER -->
+      <section id="viewCalendar" class="view-panel active" aria-label="Calendar View">
+        <div class="calendar-layout-card">
+          <!-- Calendar Header Navigation -->
+          <div class="calendar-controls">
+            <div class="calendar-title-wrap">
+              <h2 class="calendar-month-title" id="calendarMonthTitle">October 2026</h2>
+              <span class="calendar-subtext">Click any day to view & filter tasks</span>
+            </div>
+            <div class="calendar-nav-buttons">
+              <button id="prevMonthBtn" class="btn btn-outline btn-sm" title="Previous Month">‹ Previous</button>
+              <button id="launchWindowBtn" class="btn btn-primary btn-sm" title="Jump to Sprint Window">🚀 Launch Sprint (Oct-Nov 2026)</button>
+              <button id="nextMonthBtn" class="btn btn-outline btn-sm" title="Next Month">Next ›</button>
+            </div>
+          </div>
+
+          <!-- Calendar Days Grid -->
+          <div class="calendar-grid-wrapper">
+            <div class="calendar-weekdays">
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+              <span>Sun</span>
+            </div>
+            <div class="calendar-days-grid" id="calendarDaysGrid">
+              <!-- Dynamically rendered day cells -->
+            </div>
+          </div>
+
+          <!-- Selected Day Focus Panel -->
+          <div class="selected-day-panel" id="selectedDayPanel">
+            <div class="selected-day-header">
+              <div class="selected-day-title-col">
+                <span class="selected-day-badge">Selected Date</span>
+                <h3 class="selected-day-heading" id="selectedDayHeading">Saturday, 24 Oct 2026</h3>
+                <span class="selected-day-task-count" id="selectedDayCount">2 tasks scheduled</span>
+              </div>
+              <button id="addTaskForSelectedDayBtn" class="btn btn-primary btn-sm">
+                <span>＋ Add Task for this day</span>
+              </button>
+            </div>
+            
+            <!-- Tasks for the selected day -->
+            <ul id="selectedDayTaskList" class="task-list">
+              <!-- Rendered items -->
+            </ul>
+          </div>
         </div>
       </section>
+
+      <!-- VIEW 2: TIMELINE / DAY-BY-DAY AGENDA -->
+      <section id="viewTimeline" class="view-panel" aria-label="Day-by-Day Timeline View">
+        <div class="timeline-container" id="timelineContainer">
+          <!-- Dynamically grouped day-by-day blocks with checkpoints -->
+        </div>
+      </section>
+
+      <!-- VIEW 3: BY PRIORITY (P1, P2, P3) -->
+      <section id="viewPriority" class="view-panel" aria-label="Priority Grouped View">
+        <div class="priority-boards-grid">
+          <!-- P1 Board -->
+          <div class="priority-board board-p1">
+            <div class="board-header">
+              <div class="board-title-row">
+                <span class="badge p1-badge">P1 Must do</span>
+                <span class="board-count" id="p1BoardCount">17 tasks</span>
+              </div>
+              <p class="board-subtitle">Non-negotiable blockers for production launch.</p>
+            </div>
+            <ul class="task-list board-task-list" id="p1TaskList"></ul>
+          </div>
+
+          <!-- P2 Board -->
+          <div class="priority-board board-p2">
+            <div class="board-header">
+              <div class="board-title-row">
+                <span class="badge p2-badge">P2 Should do</span>
+                <span class="board-count" id="p2BoardCount">9 tasks</span>
+              </div>
+              <p class="board-subtitle">Crucial for retention, testing quality, and engagement.</p>
+            </div>
+            <ul class="task-list board-task-list" id="p2TaskList"></ul>
+          </div>
+
+          <!-- P3 Board -->
+          <div class="priority-board board-p3">
+            <div class="board-header">
+              <div class="board-title-row">
+                <span class="badge p3-badge">P3 Nice to have</span>
+                <span class="board-count" id="p3BoardCount">3 tasks</span>
+              </div>
+              <p class="board-subtitle">Marketing expansions and legal entity requests.</p>
+            </div>
+            <ul class="task-list board-task-list" id="p3TaskList"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: BY TRACK CATEGORIES (A to F) -->
+      <section id="viewTrack" class="view-panel" aria-label="Category Track View">
+        <div class="track-sections-container" id="trackSectionsContainer">
+          <!-- Dynamically rendered Tracks A, B, C, D, E, F -->
+        </div>
+      </section>
+
+      <!-- VIEW 5: ALL TASKS LIST -->
+      <section id="viewAll" class="view-panel" aria-label="Master Task List">
+        <div class="card list-view-card">
+          <div class="list-view-header">
+            <div>
+              <h2 class="card-title">All Launch Tasks</h2>
+              <p class="card-subtitle" id="masterListSubtitle">Showing filtered tasks</p>
+            </div>
+            <div class="list-view-actions">
+              <button id="clearCompletedAllBtn" class="btn btn-ghost btn-sm">Clear Completed</button>
+            </div>
+          </div>
+          <ul id="masterTaskList" class="task-list"></ul>
+        </div>
+      </section>
+
+      <!-- Empty State for Filters -->
+      <div id="noMatchEmptyState" class="empty-state" style="display: none;">
+        <div class="empty-state-icon">🔍</div>
+        <h3 class="empty-state-title">No matching tasks found</h3>
+        <p class="empty-state-text">Try adjusting your search query, priority filter, or track filter.</p>
+        <button id="resetFiltersBtn" class="btn btn-outline btn-sm">Reset All Filters</button>
+      </div>
+
+      <!-- CHECKPOINTS BANNER (Matching the Warm Cream Card from Image) -->
+      <section class="card checkpoints-card" aria-label="Launch Checkpoints">
+        <div class="checkpoints-header">
+          <div class="checkpoints-title-row">
+            <span class="checkpoints-flag">🚩</span>
+            <h2 class="checkpoints-title">CRITICAL CHECKPOINTS</h2>
+          </div>
+          <span class="checkpoints-meta">Key sprint milestones to hit before submission</span>
+        </div>
+        <div class="checkpoints-grid">
+          <div class="checkpoint-item" data-date="2026-10-26">
+            <div class="checkpoint-date-col">
+              <span class="checkpoint-day">26 Oct</span>
+              <span class="checkpoint-label">Mid-Point</span>
+            </div>
+            <div class="checkpoint-body">
+              <strong>Mid-point review</strong>
+              <p>200 levels ready, crashes fixed in Vitals, ads working with test IDs.</p>
+            </div>
+          </div>
+
+          <div class="checkpoint-item" data-date="2026-10-31">
+            <div class="checkpoint-date-col">
+              <span class="checkpoint-day">31 Oct</span>
+              <span class="checkpoint-label">Freeze</span>
+            </div>
+            <div class="checkpoint-body">
+              <strong>Content freeze</strong>
+              <p>Only bug fixes after this point. No new gameplay mechanics.</p>
+            </div>
+          </div>
+
+          <div class="checkpoint-item" data-date="2026-11-01">
+            <div class="checkpoint-date-col">
+              <span class="checkpoint-day">1 Nov</span>
+              <span class="checkpoint-label">Final QA</span>
+            </div>
+            <div class="checkpoint-body">
+              <strong>Final full test</strong>
+              <p>Thorough testing on real devices with testers opted in.</p>
+            </div>
+          </div>
+
+          <div class="checkpoint-item" data-date="2026-11-02">
+            <div class="checkpoint-date-col">
+              <span class="checkpoint-day">2 Nov</span>
+              <span class="checkpoint-label">Submission</span>
+            </div>
+            <div class="checkpoint-body">
+              <strong>Apply for production</strong>
+              <p>Submit 14-day tester verification and request production access.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </main>
 
-    <!-- Friendly Footer -->
+    <!-- App Footer -->
     <footer class="app-footer">
-      <p class="footer-tip">
-        <span aria-hidden="true">💡</span> <strong>Auto-saved:</strong> Your tasks are safely kept in your browser even if you refresh or close the tab.
-      </p>
+      <div class="footer-content">
+        <p><strong>Arrow Puzzle 14-Day Launch Sprint:</strong> Oct 19 – Nov 2, 2026. Tasks auto-saved locally in browser.</p>
+        <div class="footer-links">
+          <button id="exportJsonBtn" class="footer-btn">📥 Export Backup</button>
+          <button id="importJsonBtn" class="footer-btn">📤 Import Data</button>
+          <input type="file" id="importFileInput" accept=".json" style="display: none;">
+          <button id="printPlanBtn" class="footer-btn">🖨️ Print / Save Plan</button>
+        </div>
+      </div>
     </footer>
+
   </div>
+
+  <!-- Modal: Add / Edit Task -->
+  <div id="taskModal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle" class="modal-title">Add New Launch Task</h3>
+        <button id="closeModalBtn" class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <form id="modalTaskForm" novalidate>
+        <input type="hidden" id="modalTaskId">
+
+        <div class="form-group">
+          <label for="modalTaskText" class="form-label">Task Description <span class="required">*</span></label>
+          <textarea 
+            id="modalTaskText" 
+            class="form-textarea" 
+            placeholder="e.g., Level generator + solver ready, first batch of levels" 
+            rows="3" 
+            required
+            maxlength="200"
+          ></textarea>
+          <span class="form-error" id="modalTextError"></span>
+        </div>
+
+        <div class="form-row">
+          <!-- Priority Selector -->
+          <div class="form-group">
+            <label class="form-label">Priority Level <span class="required">*</span></label>
+            <div class="priority-radio-group">
+              <label class="priority-radio-label">
+                <input type="radio" name="modalPriority" value="P1" checked>
+                <span class="priority-chip chip-p1">🔴 P1 Must do</span>
+              </label>
+              <label class="priority-radio-label">
+                <input type="radio" name="modalPriority" value="P2">
+                <span class="priority-chip chip-p2">🟡 P2 Should do</span>
+              </label>
+              <label class="priority-radio-label">
+                <input type="radio" name="modalPriority" value="P3">
+                <span class="priority-chip chip-p3">🟢 P3 Nice to have</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Track Selector -->
+          <div class="form-group">
+            <label for="modalTrackSelect" class="form-label">Category Track <span class="required">*</span></label>
+            <select id="modalTrackSelect" class="form-select" required>
+              <option value="A">A. PLAY CONSOLE & TESTING</option>
+              <option value="B">B. GAME CONTENT (MAIN TASK)</option>
+              <option value="C">C. ANALYTICS & REWARDED ADS</option>
+              <option value="D">D. WEBSITE & POLICY</option>
+              <option value="E">E. MARKETING PREP</option>
+              <option value="F">F. ACCOUNTS & LEGAL</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- Due Date Picker -->
+          <div class="form-group">
+            <label for="modalDateInput" class="form-label">Target Date <span class="required">*</span></label>
+            <input type="date" id="modalDateInput" class="form-input" value="2026-10-24" required>
+            <div class="quick-date-chips" id="quickDateChips">
+              <button type="button" class="date-chip-btn" data-date="2026-10-20">20 Oct</button>
+              <button type="button" class="date-chip-btn" data-date="2026-10-24">24 Oct</button>
+              <button type="button" class="date-chip-btn" data-date="2026-10-26">26 Oct (Mid)</button>
+              <button type="button" class="date-chip-btn" data-date="2026-10-31">31 Oct (Freeze)</button>
+              <button type="button" class="date-chip-btn" data-date="2026-11-02">2 Nov (Launch)</button>
+            </div>
+          </div>
+
+          <!-- Display Date Text (optional for ranges like '27 Oct - 2 Nov') -->
+          <div class="form-group">
+            <label for="modalDisplayDateInput" class="form-label">Custom Display Text (Optional)</label>
+            <input type="text" id="modalDisplayDateInput" class="form-input" placeholder="e.g. 27 Oct - 2 Nov">
+            <span class="form-hint">Leave blank to use formatted date</span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancelModalBtn" class="btn btn-outline">Cancel</button>
+          <button type="submit" id="saveTaskBtn" class="btn btn-primary">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
   <!-- Main JavaScript File -->
   <script src="script.js"></script>

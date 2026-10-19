@@ -1,12 +1,12 @@
 {
-  "name": "DailyBuddy - Your Friendly Task Planner",
-  "short_name": "DailyBuddy",
+  "name": "Arrow Puzzle - 14-Day Launch Plan",
+  "short_name": "Arrow Launch",
   "start_url": "./index.html",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#f1f5f9",
-  "theme_color": "#4f46e5",
-  "description": "A beginner-friendly daily task planner with progress tracking and automatic saving.",
+  "orientation": "any",
+  "background_color": "#0f172a",
+  "theme_color": "#1e1b4b",
+  "description": "14-Day production launch plan and calendar todo planner for Arrow Puzzle game.",
   "icons": [
     {
       "src": "icon-192.png",
